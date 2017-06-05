@@ -91,8 +91,9 @@ class FareCalc(coins : Seq[Int], target : Int) {
     }
 
     // before we try skipping this coin, is there enough left in the wallet
-    // for us to ever hit or exceed the target
-    if (coin.remaining >= subsetTarget) {
+    // for us to ever hit or exceed the target, or if the next coin would still
+    // take us over the target
+    if (coin.remaining >= subsetTarget && nextCoin.value <= subsetTarget) {
       coin.selected = false
       if (subsetSum(sum, index + 1, subsetTarget)) {
         // allow solution to bubble up
