@@ -16,7 +16,7 @@ object utils {
   def coinValues(input : String) : ArrayBuffer[Int] = {
     val output : ArrayBuffer[Int] = ArrayBuffer()
     // use a regex group to capture all the value of Gaavo
-    val pattern: Regex = "([0-9]+)G?\\b".r
+    val pattern: Regex = "([0-9]+)(?i)G?\\b".r
     pattern.findAllIn(input).matchData foreach { m => output += m.group(1).toInt }
     output
   }
