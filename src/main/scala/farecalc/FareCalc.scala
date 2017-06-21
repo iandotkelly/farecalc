@@ -33,7 +33,7 @@ class FareCalc(coins : Seq[Int], target : Int) {
   // unneeded coins because they are already too large and sorting
   // to smallest first
   private val wallet : Seq[Coin] = {
-    coins.filter(value => value <= target).sortWith(_ < _).map(value => new Coin(value))
+    coins.filter(_ <= target).sortWith(_ < _).map(value => new Coin(value))
   }
 
   // utility function to calculate the remaining value in the wallet for each coin in the ordered list.
@@ -110,17 +110,17 @@ class FareCalc(coins : Seq[Int], target : Int) {
     * @return {Seq[Int]}  A list of coin values that match the target,
     *                     or null of no solution
     */
-  def findCombination() : Seq[Int] = {
+  def findCombination() : Option[Seq[Int]] = {
     // if there were no coins below the target, the wallet will be empty
     if (wallet.isEmpty) {
-      return null
+      return None
     }
 
     // start the  search
     if (subsetSum(0, 0, target)) {
       // just want to return a simple array of selected coins values
-      return wallet.filter(coin => coin.selected).map(coin => coin.value)
+      return Some(wallet.filter(coin => coin.selected).map(coin => coin.value))
     }
-    null
+    None
   }
 }

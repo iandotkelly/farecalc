@@ -19,22 +19,18 @@ object calbiaCli {
     println(s"Looking for a combinations of coins ${utils.gaavoString(coins)}" +
       s" to pay fare of ${utils.gaavoString(target)}")
 
-    var fareCalc : FareCalc = null
-    var result : Seq[Int] = null
-
     try {
       // I now know idiomatically that exceptions are discouraged, and
       // Try - Success / Failed is a preferred way of working
-      fareCalc = new FareCalc(coins, target)
-      result = fareCalc.findCombination()
+      val fareCalc = new FareCalc(coins, target)
+      val result = fareCalc.findCombination()
+      result match {
+        case Some(coins) => println(s"Usable combination is ${utils.gaavoString(coins)}")
+        case None => println("No result for fare")
+      }
     } catch {
       case unknown : Throwable => println(s"Error, ${unknown.getMessage}")
     }
-    
-    if (result == null) {
-      println("No result for fare")
-    } else {
-      println(s"Usable combination is ${utils.gaavoString(result)}")
-    }
+
   }
 }

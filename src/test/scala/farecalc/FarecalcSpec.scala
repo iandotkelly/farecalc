@@ -37,7 +37,7 @@ class FarecalcSpec extends WordSpec with Matchers {
       "not find a solution and return null" in {
         val calc = new FareCalc(Seq(10, 29, 30), 9)
         val result = calc.findCombination()
-        result should equal(null)
+        result should equal(None)
       }
     }
 
@@ -45,10 +45,7 @@ class FarecalcSpec extends WordSpec with Matchers {
       "find solution 1G, 1G, 9G" in {
         val calc = new FareCalc(Seq(1, 1, 3, 9, 9), 11)
         val result = calc.findCombination()
-        result should have length 3
-        result(0) should equal(1)
-        result(1) should equal(1)
-        result(2) should equal(9)
+        result should equal(Some(Seq(1,1,9)))
       }
     }
 
@@ -56,10 +53,7 @@ class FarecalcSpec extends WordSpec with Matchers {
       "find same solution 1G, 1G, 9G" in {
         val calc = new FareCalc(Seq(9, 9, 3, 1, 1), 11)
         val result = calc.findCombination()
-        result should have length 3
-        result(0) should equal(1)
-        result(1) should equal(1)
-        result(2) should equal(9)
+        result should equal(Some(Seq(1,1,9)))
       }
     }
 
@@ -67,7 +61,7 @@ class FarecalcSpec extends WordSpec with Matchers {
       "not find a solution" in {
         val calc = new FareCalc(Seq(1, 1, 3, 9, 9), 15)
         val result = calc.findCombination()
-        result should equal(null)
+        result should equal(None)
       }
     }
 
@@ -77,9 +71,7 @@ class FarecalcSpec extends WordSpec with Matchers {
       "find same solution 1G, 6G" in {
         val calc = new FareCalc(Seq(1, 4, 6), 7)
         val result = calc.findCombination()
-        result should have length 2
-        result(0) should equal(1)
-        result(1) should equal(6)
+        result should equal(Some(Seq(1, 6)))
       }
     }
 
@@ -87,7 +79,7 @@ class FarecalcSpec extends WordSpec with Matchers {
       "not find a solution" in {
         val calc = new FareCalc(Seq(1, 4, 6), 8)
         val result = calc.findCombination()
-        result should equal(null)
+        result should equal(None)
       }
     }
 
@@ -95,13 +87,8 @@ class FarecalcSpec extends WordSpec with Matchers {
       "find a solution of 13G, 21G, 23G" in {
         val calc = new FareCalc(Seq(6,13,13,21,23,24), 57)
         val result = calc.findCombination()
-        result should not equal (null)
-        result should have length 3
-        result(0) should equal (13)
-        result(1) should equal (21)
-        result(2) should equal (23)
+        result should equal(Some(Seq(13, 21, 23)))
       }
     }
   }
 }
-
